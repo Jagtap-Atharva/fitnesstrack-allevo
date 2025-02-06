@@ -1,8 +1,10 @@
-import { Activity, Heart, Moon, Sun } from "lucide-react";
+import { Activity, Heart, Moon, Sun, Search, LogOut, Grid, User, Settings } from "lucide-react";
 import { HealthMetricCard } from "@/components/HealthMetricCard";
 import { WellnessTip } from "@/components/WellnessTip";
 import { ProgressChart } from "@/components/ProgressChart";
 import { TreatmentPlanForm } from "@/components/TreatmentPlanForm";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const mockProgressData = [
   { date: "Mon", value: 65 },
@@ -31,50 +33,75 @@ const wellnessTips = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-accent/30 to-secondary/30">
-      <div className="container py-8 space-y-8 animate-fade-in">
-        <header className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-primary mb-2">Health & Wellness Companion</h1>
-          <p className="text-muted-foreground">Your personal guide to better health</p>
-        </header>
+    <div className="min-h-screen bg-[#1A1F2C] text-white">
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className="w-20 min-h-screen bg-[#1E2433] flex flex-col items-center py-6 space-y-8">
+          <div className="p-2 rounded-lg bg-[#2A2F3F]">
+            <Heart className="w-6 h-6 text-emerald-500" />
+          </div>
+          <nav className="flex flex-col space-y-6">
+            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+              <Grid className="w-6 h-6" />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+              <User className="w-6 h-6" />
+            </Button>
+            <Button variant="ghost" size="icon" className="text-gray-400 hover:text-white">
+              <Settings className="w-6 h-6" />
+            </Button>
+          </nav>
+        </aside>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <HealthMetricCard
-            title="Daily Activity"
-            value="7,234 steps"
-            icon={<Activity size={24} />}
-            description="Goal: 10,000 steps"
-          />
-          <HealthMetricCard
-            title="Heart Rate"
-            value="72 bpm"
-            icon={<Heart size={24} />}
-            description="Resting rate"
-          />
-          <HealthMetricCard
-            title="Sleep Quality"
-            value="8h 12m"
-            icon={<Moon size={24} />}
-            description="Deep sleep: 2h 30m"
-          />
-        </div>
+        {/* Main Content */}
+        <main className="flex-1 p-8">
+          {/* Header */}
+          <header className="flex justify-between items-center mb-8">
+            <div className="relative w-96">
+              <Input
+                type="text"
+                placeholder="Search for records"
+                className="pl-10 bg-[#2A2F3F] border-none text-white"
+              />
+              <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+            </div>
+            <Button className="bg-emerald-500 hover:bg-emerald-600">
+              <LogOut className="w-4 h-4 mr-2" />
+              Log Out
+            </Button>
+          </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2">
-            <ProgressChart
-              data={mockProgressData}
-              title="Weekly Wellness Score"
+          {/* Dashboard Grid */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <HealthMetricCard
+              title="Specialist Appointments"
+              value="1"
+              icon={<Activity className="text-emerald-500" />}
+              description="Pending"
+            />
+            <HealthMetricCard
+              title="Treatment Progress"
+              value="1 of 4"
+              icon={<Heart className="text-emerald-500" />}
+              description="Steps completed"
+            />
+            <HealthMetricCard
+              title="Total Screenings"
+              value="4"
+              icon={<Moon className="text-emerald-500" />}
+              description="This month"
+            />
+            <HealthMetricCard
+              title="Pending Screenings"
+              value="1"
+              icon={<Sun className="text-emerald-500" />}
+              description="To be scheduled"
             />
           </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold mb-4">Daily Wellness Tips</h3>
-            {wellnessTips.map((tip, index) => (
-              <WellnessTip key={index} {...tip} />
-            ))}
-          </div>
-        </div>
 
-        <TreatmentPlanForm />
+          {/* Treatment Plan Form */}
+          <TreatmentPlanForm />
+        </main>
       </div>
     </div>
   );

@@ -31,11 +31,13 @@ const formSchema = z.object({
   mentalHealthSupport: z.string(),
 });
 
+type FormData = z.infer<typeof formSchema>;
+
 export const TreatmentPlanForm = () => {
   const [showPlan, setShowPlan] = useState(false);
-  const [planData, setPlanData] = useState<z.infer<typeof formSchema> | null>(null);
+  const [planData, setPlanData] = useState<FormData | null>(null);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       medicalCondition: "",
@@ -47,7 +49,7 @@ export const TreatmentPlanForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: FormData) => {
     setPlanData(values);
     setShowPlan(true);
   };
@@ -57,8 +59,8 @@ export const TreatmentPlanForm = () => {
       {!showPlan ? (
         <>
           <div className="space-y-2">
-            <h2 className="text-2xl font-bold">Create Your Treatment Plan</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-2xl font-bold text-white">Create Your Treatment Plan</h2>
+            <p className="text-gray-400">
               Please provide your medical details and preferences to generate a personalized treatment plan.
             </p>
           </div>
@@ -70,9 +72,9 @@ export const TreatmentPlanForm = () => {
                 name="medicalCondition"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Medical Condition</FormLabel>
+                    <FormLabel className="text-white">Medical Condition</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your medical condition" {...field} />
+                      <Input placeholder="Enter your medical condition" className="bg-gray-800 border-gray-700 text-white" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -84,9 +86,9 @@ export const TreatmentPlanForm = () => {
                 name="currentMedications"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Current Medications</FormLabel>
+                    <FormLabel className="text-white">Current Medications</FormLabel>
                     <FormControl>
-                      <Input placeholder="List your current medications" {...field} />
+                      <Input placeholder="List your current medications" className="bg-gray-800 border-gray-700 text-white" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -98,11 +100,11 @@ export const TreatmentPlanForm = () => {
                 name="treatmentGoals"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Treatment Goals</FormLabel>
+                    <FormLabel className="text-white">Treatment Goals</FormLabel>
                     <FormControl>
                       <Textarea
                         placeholder="Describe your treatment goals"
-                        className="min-h-[100px]"
+                        className="min-h-[100px] bg-gray-800 border-gray-700 text-white"
                         {...field}
                       />
                     </FormControl>
@@ -116,14 +118,14 @@ export const TreatmentPlanForm = () => {
                 name="exercisePreference"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Exercise Preference</FormLabel>
+                    <FormLabel className="text-white">Exercise Preference</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                           <SelectValue placeholder="Select exercise preference" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-800 border-gray-700">
                         <SelectItem value="low">Low Impact</SelectItem>
                         <SelectItem value="moderate">Moderate</SelectItem>
                         <SelectItem value="high">High Intensity</SelectItem>
@@ -139,9 +141,9 @@ export const TreatmentPlanForm = () => {
                 name="dietaryRestrictions"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Dietary Restrictions</FormLabel>
+                    <FormLabel className="text-white">Dietary Restrictions</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter any dietary restrictions" {...field} />
+                      <Input placeholder="Enter any dietary restrictions" className="bg-gray-800 border-gray-700 text-white" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -153,14 +155,14 @@ export const TreatmentPlanForm = () => {
                 name="mentalHealthSupport"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Mental Health Support Preferences</FormLabel>
+                    <FormLabel className="text-white">Mental Health Support Preferences</FormLabel>
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
-                        <SelectTrigger>
+                        <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
                           <SelectValue placeholder="Select support type" />
                         </SelectTrigger>
                       </FormControl>
-                      <SelectContent>
+                      <SelectContent className="bg-gray-800 border-gray-700">
                         <SelectItem value="meditation">Meditation</SelectItem>
                         <SelectItem value="counseling">Counseling</SelectItem>
                         <SelectItem value="stress-management">Stress Management</SelectItem>
@@ -171,7 +173,9 @@ export const TreatmentPlanForm = () => {
                 )}
               />
 
-              <Button type="submit" className="w-full">Generate Treatment Plan</Button>
+              <Button type="submit" className="w-full bg-emerald-500 hover:bg-emerald-600">
+                Generate Treatment Plan
+              </Button>
             </form>
           </Form>
         </>
