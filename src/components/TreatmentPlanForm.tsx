@@ -24,11 +24,11 @@ import { TreatmentPlan } from "./TreatmentPlan";
 
 const formSchema = z.object({
   medicalCondition: z.string().min(2, "Please enter your medical condition"),
-  currentMedications: z.string(),
+  currentMedications: z.string().min(1, "Please enter your current medications"),
   treatmentGoals: z.string().min(10, "Please describe your treatment goals"),
-  exercisePreference: z.string(),
-  dietaryRestrictions: z.string(),
-  mentalHealthSupport: z.string(),
+  exercisePreference: z.string().min(1, "Please select your exercise preference"),
+  dietaryRestrictions: z.string().min(1, "Please enter your dietary restrictions"),
+  mentalHealthSupport: z.string().min(1, "Please select your mental health support preference"),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -41,10 +41,10 @@ export const TreatmentPlanForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       medicalCondition: "",
-      currentMedications: "",
+      currentMedications: "None",
       treatmentGoals: "",
       exercisePreference: "",
-      dietaryRestrictions: "",
+      dietaryRestrictions: "None",
       mentalHealthSupport: "",
     },
   });
