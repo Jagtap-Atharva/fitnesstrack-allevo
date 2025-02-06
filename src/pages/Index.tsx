@@ -2,6 +2,7 @@ import { Activity, Heart, Moon, Sun } from "lucide-react";
 import { HealthMetricCard } from "@/components/HealthMetricCard";
 import { WellnessTip } from "@/components/WellnessTip";
 import { ProgressChart } from "@/components/ProgressChart";
+import { TreatmentPlanForm } from "@/components/TreatmentPlanForm";
 
 const mockProgressData = [
   { date: "Mon", value: 65 },
@@ -72,6 +73,8 @@ const Index = () => {
             ))}
           </div>
         </div>
+
+        <TreatmentPlanForm />
       </div>
     </div>
   );
